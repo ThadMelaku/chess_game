@@ -1,5 +1,9 @@
 require_relative 'piece'
 class Pawn < Piece
+  def to_s
+    #colour == :white ? '♙' : '♟︎'
+    colour == "white" ? 'P' : 'p'
+  end
   def initial_position?
     (colour=="white"&&row==6)||(colour=="black"&&row==1)
   end

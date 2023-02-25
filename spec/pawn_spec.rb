@@ -1,5 +1,5 @@
 require 'spec_helper'
-require_relative '../lib/pawn'
+require_relative '../lib/piece_files/pawn'
 
 RSpec.describe 'Pawn' do
   describe Pawn do

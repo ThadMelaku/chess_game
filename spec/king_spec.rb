@@ -1,5 +1,5 @@
 require 'spec_helper'
-require_relative '../lib/king'
+require_relative '../lib/piece_files/king'
 
 RSpec.describe 'King' do
   describe King do

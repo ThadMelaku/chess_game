@@ -1,0 +1,6 @@
+require_relative './piece_files/bishop.rb'
+require_relative './piece_files/king.rb'
+require_relative './piece_files/queen.rb'
+require_relative './piece_files/rook.rb'
+require_relative './piece_files/knight.rb'
+require_relative './piece_files/pawn.rb'
