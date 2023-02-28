@@ -13,7 +13,7 @@ RSpec.describe 'Board' do
     end
     describe '"get" and "set" board position [1,1] to pawn' do
       subject(:board2) {described_class.new}
-      let(:pawn) { instance_double(Pawn, position: [1,1], colour: "white" )}
+      let(:pawn) { instance_double(Pawn, position: [1,1], colour: "white", board: board2)}
 
       it '"set" position [1,1] to pawn, then check board at [1,1] with "get"' do
         board2[pawn.position] = pawn
@@ -57,9 +57,16 @@ RSpec.describe 'Board' do
           check_position(board3,5,colour,"Bishop")
         end
       end
-
     end
-  
+    describe '#empty_square?' do
+      subject(:board4) {described_class.start_chess}
+      it 'position [1,1] should not be an empty square' do
+        expect(board4.empty_square?([1,1])).to be(false)
+      end
+      it 'position[2,1] should be empty square ' do
+        expect(board4.empty_square?([2,1])).to be(true)
+      end
+    end
   end
 
 
