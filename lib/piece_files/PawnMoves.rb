@@ -8,16 +8,23 @@ module PawnMoves
       curr_col += col
 
       square = [curr_row, curr_col]
-      break unless self.between_0_and_7(curr_row,curr_col)
-      #move forward 1 or 2 squares
-      if col==0&&board.empty_square?(square)
+      next unless self.between_0_and_7(curr_row,curr_col)
+      #move forward 2 squares
+      if (row==2||row==-2) 
+        in_between_square=[curr_row-1,curr_col] if row==2
+        in_between_square=[curr_row+1,curr_col] if row==-2
+        if board.empty_square?(square) && board.empty_square?(in_between_square) 
+          moveset << square
+        end
+      #move forward 1 square
+      elsif col==0&&board.empty_square?(square)
         moveset << square
       #capture enemy piece diagonally
       elsif col!=0&&opponent_piece?(square)
         moveset << square
       end
     end
-    moveset
+    moveset.uniq
   end
 
   def check_enpassant

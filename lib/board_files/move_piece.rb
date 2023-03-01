@@ -16,7 +16,7 @@ module MovePiece
       puts "this is a valid move"
       move_piece(start,target) 
     else
-    puts "enter a valid move"
+      puts"enter a valid move"
     #prompt for input
     end
   end

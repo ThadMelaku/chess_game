@@ -48,6 +48,14 @@ RSpec.describe 'Pawn' do
         expect(pawn4.possible_moves.sort.uniq).to eq([[2,2],[3,2]].sort)
       end
     end
+    context 'white pawn at [6,0]' do
+      let(:board) {Board.new} 
+      subject(:pawn4) {described_class.new([6,0],"black",board)}
+      
+      it 'pawn possible moves should be [2,2],[3,2]]' do
+        expect(pawn4.possible_moves.sort.uniq).to eq([[5,0],[4,0]].sort)
+      end
+    end
 
   end
 end
