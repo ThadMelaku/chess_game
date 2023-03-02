@@ -12,9 +12,10 @@ module LongMoves
         break if !self.between_0_and_7(curr_row,curr_col)
         if board.empty_square?(square)
           moveset << square
-        end
-        if opponent_piece?(square)
+        elsif opponent_piece?(square)
           moveset << square
+          break
+        else
           break
         end
       end
