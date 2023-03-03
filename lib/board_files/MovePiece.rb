@@ -1,5 +1,7 @@
+require_relative './EnPassant.rb'
 #used by Board class to move piece from start to target position
 module MovePiece
+  include EnPassant
   def move(start,target)
     legal_move=nil
     piece = self[start]
@@ -20,7 +22,14 @@ module MovePiece
     #prompt for input
     end
   end
+  def move_piece_test(start,target)
+    enpassant(start,target,true) if self[start].class.name=="Pawn"
+    self[target]=self[start]
+    self[start]=nil
+    self[target].position = target
+  end
   def move_piece(start,target)
+    enpassant(start,target) if self[start].class.name=="Pawn"
     self[target]=self[start]
     self[start]=nil
     self[target].position = target

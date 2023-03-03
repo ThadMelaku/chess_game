@@ -7,6 +7,9 @@ RSpec.describe 'Pawn' do
       let(:board) {Board.new} 
       subject(:pawn1) {described_class.new([6,1],"black",board)}
 
+      it 'en_passant should be false' do
+        expect(pawn1.en_passant).to be(false)
+      end
       it 'pawn colour should be white' do
         expect(pawn1.colour).to eq("black")
       end
@@ -30,6 +33,9 @@ RSpec.describe 'Pawn' do
       let(:board) {Board.new} 
       subject(:pawn3) {described_class.new([1,1],"white",board)}
 
+      it 'en_passant should be false' do
+        expect(pawn3.en_passant).to be(false)
+      end
       it 'pawn colour should be black' do
         expect(pawn3.colour).to eq("white")
       end

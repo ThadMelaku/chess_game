@@ -1,5 +1,5 @@
 require_relative '../piece_paths.rb'
-require_relative './move_piece.rb'
+require_relative './MovePiece.rb'
 class Board
   include MovePiece
   attr_reader :board
