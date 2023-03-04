@@ -13,7 +13,7 @@ RSpec.describe 'Knight' do
         expect(knight1.position).to eq([7,1])
       end
       it 'knight possible moves should be [6,3] [5,2] [5,0]' do
-        expect(knight1.possible_moves.sort.uniq).to eq([[6, 3], [5, 0], [5, 2]].sort)
+        expect(knight1.possible_moves.sort).to eq([[6, 3], [5, 0], [5, 2]].sort)
       end
 
     end
@@ -27,7 +27,7 @@ RSpec.describe 'Knight' do
         expect(knight2.position).to eq([0,1])
       end
       it 'knight possible moves should be [1,3] [2,2] [2,0]' do
-        expect(knight2.possible_moves.sort.uniq).to eq([[1, 3], [2, 2], [2, 0]].sort)
+        expect(knight2.possible_moves.sort).to eq([[1, 3], [2, 2], [2, 0]].sort)
       end
 
     end

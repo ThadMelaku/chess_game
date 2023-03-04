@@ -1,11 +1,12 @@
 class Piece
-  attr_accessor :position, :colour, :board, :en_passant
+  attr_accessor :position, :colour, :board, :en_passant, :initial_position
 
   def initialize(position,colour,board)
     @position=position
     @colour=colour
     @board=board
     @en_passant=false if self.class.name=="Pawn"
+    @initial_position=true if self.class.name=="King"||self.class.name=="Rook"
   end
   def row
     position[0]
@@ -21,7 +22,7 @@ class Piece
     legal_moves = []
     self.possible_moves.each do |move| 
       dummy_board = board.dummy
-      dummy_board.move_piece_test(position, move)
+      dummy_board.move_piece(position,move,true) #true because it is a testmove
 
       unless dummy_board.in_check?(self,colour) #not in check, then the move is safe
         legal_moves << move
