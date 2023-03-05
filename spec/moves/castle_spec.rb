@@ -14,6 +14,7 @@ RSpec.describe 'Board' do
         move_kingside_pieces(board)
         castle_kingside_white(board)
         king_rook_are_castled_kingside(board)
+        king_rook_are_not_in_initial_position(board)
         #d.display
       end
     end
@@ -25,6 +26,7 @@ RSpec.describe 'Board' do
         black_queen_b5(board)
         move_kingside_pieces(board)
         kingside_check_white(board)
+        king_rook_are_in_initial_position(board)
         #d.display
       end
     end
@@ -45,7 +47,14 @@ RSpec.describe 'Board' do
     expect(board[[0,1]].class.name).to eq("King")
     expect(board[[0,2]].class.name).to eq("Rook")
   end
-
+  def king_rook_are_not_in_initial_position(board)
+    expect(board[[0,1]].initial_position).to be(false)
+    expect(board[[0,2]].initial_position).to be(false)
+  end
+  def king_rook_are_in_initial_position(board)
+    expect(board[[0,0]].initial_position).to be(true)
+    expect(board[[0,3]].initial_position).to be(true)
+  end
   def kingside_check_white(board) #passes through check
     expect(board).to receive(:puts).with("enter a valid move").exactly(1).times
     board.move([0,3],[0,1])
