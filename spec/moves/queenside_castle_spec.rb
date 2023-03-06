@@ -25,8 +25,32 @@ RSpec.describe 'Board' do
       it 'cannot castle through check' do
         move_queenside_pieces(board)
         black_queen_g5(board)
-        queenside_check_white(board)
+        queenside_invalid_white(board) #passes through check
         king_rook_are_in_initial_position(board)
+        #d.display
+      end
+    end
+    context 'castle queenside' do
+      let(:board) {Board.start_chess}
+      let(:d) {DisplayBoard.new(board)}
+
+      it 'missing rook' do
+        move_queenside_pieces(board)
+        expect(board).to receive(:puts).with("this is a valid move")
+        board.move([0,7],[0,6])
+        queenside_invalid_white(board) #No rook on A1
+        #d.display
+      end
+      it 'rook has moved from inital position, cannot be castled' do
+        move_queenside_pieces(board)
+        shuffle_rook(board)
+        queenside_invalid_white(board) #rook on A1 has been moved
+        #d.display  
+      end
+      it 'king has moved from inital position, cannot be castled' do
+        move_queenside_pieces(board)
+        shuffle_king(board)
+        queenside_invalid_white(board) #king has been moved
         #d.display
       end
     end
@@ -39,6 +63,7 @@ RSpec.describe 'Board' do
     board.move([0,5],[5,0])
     board.move([0,6],[2,7])
   end
+
   def castle_queenside_white(board)
     expect(board).to receive(:puts).with("king can castle").exactly(1).times
     board.move([0,3],[0,5])
@@ -55,9 +80,21 @@ RSpec.describe 'Board' do
     expect(board[[0,3]].initial_position).to be(true)
     expect(board[[0,7]].initial_position).to be(true)
   end
-  def queenside_check_white(board) #passes through check
+  def queenside_invalid_white(board) 
     expect(board).to receive(:puts).with("enter a valid move").exactly(1).times
     board.move([0,3],[0,5])
+  end
+  def shuffle_rook(board)
+    expect(board).to receive(:puts).with("this is a valid move")
+    board.move([0,7],[0,6])
+    expect(board).to receive(:puts).with("this is a valid move")
+    board.move([0,6],[0,7]) #move rook back to starting square
+  end
+  def shuffle_king(board)
+    expect(board).to receive(:puts).with("this is a valid move")
+    board.move([0,3],[0,4])
+    expect(board).to receive(:puts).with("this is a valid move")
+    board.move([0,4],[0,3]) #move rook back to starting square
   end
   def black_queen_g5(board)
     expect(board).to receive(:puts).with("this is a valid move").exactly(2).times

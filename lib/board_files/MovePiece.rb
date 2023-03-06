@@ -34,7 +34,7 @@ module MovePiece
     self[target]=self[start]
     self[start]=nil
     self[target].position = target
-    self[target].initial_position=false if self.class.name=="King"||self.class.name=="Rook"
+    self[target].initial_position=false if self[target].class.name=="King"||self[target].class.name=="Rook"
   end
 
   def in_check?(piece,colour)
