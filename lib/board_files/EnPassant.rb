@@ -8,9 +8,11 @@ module EnPassant
       #check if there is a opposite coloured pawn with en_passant==true
       if move[1]==1
         target_pawn=[start[0],start[1]+1]
+        return unless self[target_pawn]
         self[target_pawn]=nil if self[target_pawn].en_passant==true #set captured pawn to nil
       elsif move[1]==-1
         target_pawn=[start[0],start[1]-1]
+        return unless self[target_pawn]
         self[target_pawn]=nil if self[target_pawn].en_passant==true #set captured pawn to nil
       end
 

@@ -1,9 +1,9 @@
 require_relative './EnPassant.rb'
 require_relative './Castle.rb'
+require_relative './Promotion.rb'
 #used by Board class to move piece from start to target position
 module MovePiece
-  include EnPassant
-  include Castle
+  include Promotion, Castle, EnPassant
   def move(start,target)
     legal_move=nil
     piece = self[start]
@@ -18,12 +18,16 @@ module MovePiece
 
     castle_legal=false
     castle_legal=castle(start,target) if piece.class.name=="King"
+
+    promote=pawn_promotion?(start,target) if piece.class.name=="Pawn"
     
     if legal_move==true
       puts "this is a valid move"
-      move_piece(start,target)
+      move_piece(start,target) unless promote==true
     elsif castle_legal==true
       puts "king can castle"
+    elsif promote==true
+      puts "pawn can promote"
     else
       puts"enter a valid move"
       #prompt for input
@@ -31,10 +35,12 @@ module MovePiece
   end
   def move_piece(start,target,test_move=false)
     enpassant(start,target,test_move) if self[start].class.name=="Pawn"
+
     self[target]=self[start]
     self[start]=nil
     self[target].position = target
     self[target].initial_position=false if self[target].class.name=="King"||self[target].class.name=="Rook"
+    
   end
 
   def in_check?(piece,colour)

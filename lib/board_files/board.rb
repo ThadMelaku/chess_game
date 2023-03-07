@@ -2,7 +2,7 @@ require_relative '../piece_paths.rb'
 require_relative './MovePiece.rb'
 class Board
   include MovePiece
-  attr_reader :board
+  attr_reader :board, :input
 
   def self.start_chess  
     board1 = self.new
@@ -27,6 +27,7 @@ class Board
   
   def initialize
     @board = Array.new(8) {Array.new(8)}
+    @input = nil
   end
   def [](position) #get position
     row, column = position
