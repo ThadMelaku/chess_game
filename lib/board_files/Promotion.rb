@@ -1,3 +1,4 @@
+require_relative './MovePiece.rb'
 module Promotion
   attr_accessor :input 
   def pawn_promotion?(start,target,test_move=false)
@@ -5,7 +6,8 @@ module Promotion
     puts "checking pawn promotion"
 
     promotion_input if input == nil
-    promote_pawn(self[start],target)
+    piece_name = full_piece_name
+    promote_pawn(self[start],target,piece_name)
     return true
   end
   def promotion_input(user_input=nil)
@@ -17,15 +19,32 @@ module Promotion
     @input = user_input
   end
 
-  def promote_pawn(pawn,target)
+  def full_piece_name
     case input
     when "Q"
-      puts "promote to queen"
-      self[target]=Queen.new([target],pawn.colour,self)
+      piece_name=Queen
+    when "R"
+      piece_name=Rook
+    when "B"
+      piece_name=Bishop
+    when "N"
+      piece_name=Knight
+    end
+  end
+  def promote_pawn(pawn,target,piece_name)
+    unless illegal_move?(pawn,target,piece_name)
+      self[target]=piece_name.new([target],pawn.colour,self)
       self[pawn.position]=nil
       pawn=nil
+    else
+      puts "cannot promote to #{piece_name}"
     end
-    input=nil
   end
-
+  def illegal_move?(pawn,target,piece_name)
+    dummy_board = self.dummy
+    dummy_board[target]=piece_name.new([target],pawn.colour,dummy_board)
+    dummy_board[pawn.position]=nil
+    #p dummy_board.in_check?(pawn,pawn.colour)
+    incheck=dummy_board.in_check?(pawn,pawn.colour)
+  end
 end

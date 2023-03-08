@@ -43,7 +43,7 @@ module MovePiece
     
   end
 
-  def in_check?(piece,colour)
+  def in_check?(piece,colour) #remove colour parameter use piece.colour
     king=find_king(piece.colour)
     raise NoKingError.new('King not found') if king==nil
 
