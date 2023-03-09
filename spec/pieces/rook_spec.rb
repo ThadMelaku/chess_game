@@ -1,5 +1,4 @@
-require 'spec_helper'
-require_relative '../lib/piece_files/rook'
+require_relative '../../lib/piece_files/rook'
 
 RSpec.describe 'Rook' do
   describe Rook do

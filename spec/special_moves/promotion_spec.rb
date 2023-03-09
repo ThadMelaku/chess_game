@@ -4,7 +4,7 @@ RSpec.describe 'Board' do
   describe Board do
 
     context 'Queen promotion' do
-      let(:board) {Board.start_chess}
+      subject(:board) {Board.start_chess}
       let(:d) {DisplayBoard.new(board)}
       before do
         board.promotion_input("Q")
@@ -18,7 +18,7 @@ RSpec.describe 'Board' do
       end
     end
     context 'Queen cant promote' do
-      let(:board) {Board.start_chess}
+      subject(:board) {Board.start_chess}
       let(:d) {DisplayBoard.new(board)}
       before do
         board.promotion_input("Q")
@@ -35,7 +35,7 @@ RSpec.describe 'Board' do
       end
     end
     context 'Rook promotion' do
-      let(:board) {Board.start_chess}
+      subject(:board) {Board.start_chess}
       let(:d) {DisplayBoard.new(board)}
       before do
         board.promotion_input("R")
@@ -49,7 +49,7 @@ RSpec.describe 'Board' do
       end
     end
     context 'Bishop promotion' do
-      let(:board) {Board.start_chess}
+      subject(:board) {Board.start_chess}
       let(:d) {DisplayBoard.new(board)}
       before do
         board.promotion_input("B")
@@ -63,7 +63,7 @@ RSpec.describe 'Board' do
       end
     end
     context 'Knight promotion' do
-      let(:board) {Board.start_chess}
+      subject(:board) {Board.start_chess}
       let(:d) {DisplayBoard.new(board)}
       before do
         board.promotion_input("N")
@@ -77,8 +77,6 @@ RSpec.describe 'Board' do
       end
     end
   end
-
-
   def push_pawn_to_seventh_rank(board)
     board.move([1,7],[2,6])
     board.move([2,6],[3,6])
@@ -86,7 +84,6 @@ RSpec.describe 'Board' do
     board.move([4,6],[5,6])
     board.move([5,6],[6,6])
   end
-
   def clear_b_file(board)
     board.move([7,6],[5,5])
     board.move([6,6],[4,6])

@@ -1,6 +1,4 @@
-require 'spec_helper'
-require_relative '../lib/board_files/board'
-require_relative '../lib/board_files/display_board'
+require_relative '../../lib/board_paths.rb'
 
 RSpec.describe 'DisplayBoard' do
   describe DisplayBoard do

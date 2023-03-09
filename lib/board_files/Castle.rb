@@ -47,7 +47,7 @@ module Castle
       dummy_board = self.dummy
       dummy_board.move_piece(start,move,true) #true because it is a testmove
 
-      if dummy_board.in_check?(dummy_board[move],dummy_board[move].colour)
+      if dummy_board.in_check?(dummy_board[move].colour)
         return false
       end
     end

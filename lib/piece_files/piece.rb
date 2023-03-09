@@ -24,7 +24,7 @@ class Piece
       dummy_board = board.dummy
       dummy_board.move_piece(position,move,true) #true because it is a testmove
 
-      unless dummy_board.in_check?(self,colour) #not in check, then the move is safe
+      unless dummy_board.in_check?(colour) #not in check, then the move is safe
         legal_moves << move
       end
     end

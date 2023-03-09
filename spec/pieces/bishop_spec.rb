@@ -1,5 +1,4 @@
-require 'spec_helper'
-require_relative '../lib/piece_files/bishop'
+require_relative '../../lib/piece_files/bishop'
 
 RSpec.describe 'Bishop' do
   describe Bishop do

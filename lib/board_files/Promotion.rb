@@ -45,6 +45,6 @@ module Promotion
     dummy_board[target]=piece_name.new([target],pawn.colour,dummy_board)
     dummy_board[pawn.position]=nil
     #p dummy_board.in_check?(pawn,pawn.colour)
-    incheck=dummy_board.in_check?(pawn,pawn.colour)
+    incheck=dummy_board.in_check?(pawn.colour)
   end
 end
