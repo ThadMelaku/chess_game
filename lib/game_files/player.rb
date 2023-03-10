@@ -6,15 +6,34 @@ class Player
 
   def player_input
     input=gets.chomp
-    
-    #check if it contains a ',' else go back
-    input=input.split(",")
+    coordinate = /[a-h][0-7]/i
+    while coordinate.match?(input)==false && input!="exit"
+      puts " "
+      puts "#{input} is not valid"
+      puts "Enter a letter from a to h, and a number from 1 to 8, example: 'd4'"
+      puts "type 'exit' to go to the menu"
 
-    #input.length==2
-    #input[0].length==1&&input[1].length==1
-    #regular expression match: integer comma integer
-    input=input.map(&:to_i)
+      input=gets.chomp
+    end
+
+    if input!="exit"
+      puts "square is inbounds" 
+      input=numerical_coordinate(input)
+    end 
+    input
     
+  end
+
+  def numerical_coordinate(input)
+    input=input.gsub(/[a-h]/i) {|m| 104-m.downcase.ord}
+    
+    arr=[]
+    arr[0],arr[1]=input[1],input[0]
+   
+    arr=arr.map(&:to_i)
+    arr[0]=arr[0]-1
+  
+    arr
   end
   
 end

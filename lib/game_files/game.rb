@@ -34,6 +34,7 @@ attr_accessor :player1, :player2, :curr_player, :board, :display_board
       while start==nil
         puts "Choose a piece to move: "
         start = curr_player.player_input
+        p start
       end
       empty_square = board[start].nil?
       same_colour = board[start].colour==curr_player.colour if !empty_square
