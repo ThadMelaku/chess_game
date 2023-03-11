@@ -1,30 +1,56 @@
 class Game
 attr_accessor :player1, :player2, :curr_player, :board, :display_board
 
-  def initialize(player1,player2,board,display_board)
-    @player1 = player1
-    @player2 = player2
-    @curr_player = @player1
+  def initialize
+    setup_variables
+  end
+  def setup_variables
+    b = Board.start_chess
+    d = DisplayBoard.new(b)
+    p1 = Player.new("white")
+    p2 = Player.new("black")
 
-    @board=board
-    @display_board=display_board
+    @player1 = p1
+    @player2 = p2
+    @curr_player = @player1
+    @board=b
+    @display_board=d
   end
 
   def play
     while true
-      system("clear") || system("cls")
-      display_board.display
-      puts "It's #{curr_player.colour}'s turn"
-      if board.in_check?(curr_player.colour)
-        puts "#{curr_player.colour} is in check"
+      puts "Would you like to start a new game? [y/n]"
+      break unless curr_player.play_again_input
+      setup_variables
+
+      while !game_over?
+        puts "It's #{curr_player.colour}'s turn"
+        if board.in_check?(curr_player.colour)
+          puts "#{curr_player.colour} is in check"
+        end
+        break if player_turn==false
+        switch_turn
       end
-      player_turn
-      switch_turn
     end
+    puts "Thanks for playing!"
+  end
+  def game_over?
     system("clear") || system("cls")
     display_board.display
-    puts "Game over!"
-    #puts winner
+    #current player is checkmated
+    if board.checkmate?(curr_player.colour)
+      switch_turn
+      puts "#{curr_player.colour} wins!"
+      return true
+    end
+    #current player is stalemated
+    if board.stalemate?(curr_player.colour)
+      puts "Stalemate! The game is a draw"
+      return true
+    end
+    #50 move rule
+    #Not enough mating material
+    false
   end
 
   def player_turn
@@ -32,10 +58,11 @@ attr_accessor :player1, :player2, :curr_player, :board, :display_board
     while true do
       start = nil
       while start==nil
+        puts " "
         puts "Choose a piece to move: "
         start = curr_player.player_input
-        p start
       end
+      return false if start=="exit"
       empty_square = board[start].nil?
       same_colour = board[start].colour==curr_player.colour if !empty_square
       has_legal_moves = board[start].legal_moves!=[] if !empty_square
@@ -49,12 +76,16 @@ attr_accessor :player1, :player2, :curr_player, :board, :display_board
       p start
     end
     #Ask player to choose target
+    return choose_target(start)
+  end
+  def choose_target(start)
     while true do
-      puts "Choose a target square "
+      puts " "
+      puts "Choose a target square: "
       target = curr_player.player_input
-      
+      return false if target=="exit"
       if board.move(start, target)
-        break
+        return true
       end
     end
   end

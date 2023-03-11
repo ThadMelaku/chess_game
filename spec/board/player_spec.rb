@@ -64,6 +64,18 @@ RSpec.describe 'Player' do
           expect(p1.player_input).to eq("exit")
         end
       end
+      context 'capital letters work' do
+        subject(:p1) {Player.new("white")}
+        before do
+          allow(p1).to receive(:puts)
+          allow(p1).to receive(:gets).and_return("D5","C6")  
+        end
+
+        it 'D5 and C6 are valid' do
+          expect(p1.player_input).to eq([4,4])
+          expect(p1.player_input).to eq([5,5])
+        end
+      end
     end
   end
 end

@@ -6,7 +6,7 @@ class Player
 
   def player_input
     input=gets.chomp
-    coordinate = /[a-h][0-7]/i
+    coordinate = /[a-h][1-8]/i
     while coordinate.match?(input)==false && input!="exit"
       puts " "
       puts "#{input} is not valid"
@@ -17,11 +17,9 @@ class Player
     end
 
     if input!="exit"
-      puts "square is inbounds" 
       input=numerical_coordinate(input)
     end 
-    input
-    
+    input   
   end
 
   def numerical_coordinate(input)
@@ -34,6 +32,21 @@ class Player
     arr[0]=arr[0]-1
   
     arr
+  end
+  def play_again_input
+    input=gets.chomp
+    yes_no = /y|n|/i
+
+    while yes_no.match?(input)==false
+      puts " "
+      puts "#{input} is not valid"
+      puts "Enter a letter either y or n"
+
+      input=gets.chomp
+    end
+    return true if input=="y"
+    return false if input=="n"
+
   end
   
 end
