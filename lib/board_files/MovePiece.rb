@@ -38,7 +38,8 @@ module MovePiece
     end
   end
   def move_piece(start,target,test_move=false)
-    enpassant(start,target,test_move) if self[start].class.name=="Pawn"
+    enpassant_capture=enpassant(start,target,test_move) if self[start].class.name=="Pawn"
+    fifty_move_rule(enpassant_capture,target)
     self[target]=self[start]
     self[start]=nil
     self[target].position = target

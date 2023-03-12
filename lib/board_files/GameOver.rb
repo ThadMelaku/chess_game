@@ -18,8 +18,15 @@ module GameOver
     return true #true if colour has no legal moves
   end
 
-  #50moverule
-    #board.moves_without_capture
+  def fifty_move_rule(enpassant_capture=false,target)
+    if enpassant_capture==true
+      self.reset_capture_counter
+    elsif self[target]!=nil
+      self.reset_capture_counter
+    else
+      self.increment_capture_counter
+    end
+  end
 
   def in_check?(colour) 
     king=find_king(colour)

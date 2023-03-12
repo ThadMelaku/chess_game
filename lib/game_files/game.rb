@@ -49,6 +49,13 @@ attr_accessor :player1, :player2, :curr_player, :board, :display_board
       return true
     end
     #50 move rule
+    if board.get_capture_counter==100
+      puts "50 move rule! The game is a draw"
+      return true
+    else
+      #puts "there have been #{board.get_capture_counter} moves without a capture"
+    end
+
     #Not enough mating material
     false
   end
