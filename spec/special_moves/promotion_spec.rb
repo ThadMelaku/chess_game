@@ -8,6 +8,7 @@ RSpec.describe 'Board' do
       let(:d) {DisplayBoard.new(board)}
       before do
         board.promotion_input("Q")
+        board.got_test_input
         allow(board).to receive(:puts)
       end
       it 'pawn can promote to Queen' do
@@ -22,6 +23,7 @@ RSpec.describe 'Board' do
       let(:d) {DisplayBoard.new(board)}
       before do
         board.promotion_input("Q")
+        board.got_test_input
         allow(board).to receive(:puts)
       end
       it 'king will be in check' do
@@ -39,6 +41,7 @@ RSpec.describe 'Board' do
       let(:d) {DisplayBoard.new(board)}
       before do
         board.promotion_input("R")
+        board.got_test_input
         allow(board).to receive(:puts)
       end
       it 'pawn can promote to Rook' do
@@ -53,6 +56,7 @@ RSpec.describe 'Board' do
       let(:d) {DisplayBoard.new(board)}
       before do
         board.promotion_input("B")
+        board.got_test_input
         allow(board).to receive(:puts)
       end
       it 'pawn can promote to Bishop' do
@@ -67,6 +71,7 @@ RSpec.describe 'Board' do
       let(:d) {DisplayBoard.new(board)}
       before do
         board.promotion_input("N")
+        board.got_test_input
         allow(board).to receive(:puts)
       end
       it 'pawn can promote to Knight' do

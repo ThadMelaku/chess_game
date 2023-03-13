@@ -4,7 +4,7 @@ class Board
   include MovePiece
   attr_reader :board, :input, :capture_counter
 
-  def self.start_chess  
+  def self.start_chess
     board1 = self.new
     8.times do |col|
       board1[[1,col]] = Pawn.new([1,col],"white",board1)
@@ -28,6 +28,7 @@ class Board
   def initialize
     @board = Array.new(8) {Array.new(8)}
     @input = nil
+    @test_input = false
     @capture_counter=0 #50 move rule when counter equals 100
   end
   def [](position) #get position
@@ -63,5 +64,8 @@ class Board
   end
   def get_capture_counter
     @capture_counter
+  end
+  def got_test_input
+    @test_input=true
   end
 end

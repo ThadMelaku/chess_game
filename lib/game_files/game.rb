@@ -56,7 +56,11 @@ attr_accessor :player1, :player2, :curr_player, :board, :display_board
       #puts "there have been #{board.get_capture_counter} moves without a capture"
     end
 
-    #Not enough mating material
+    #Not enough material to deliver checkmate
+    if board.not_enough_material?("white")&&board.not_enough_material?("black")
+      puts "Not enough mating material! The game is a draw"
+      return true
+    end
     false
   end
 

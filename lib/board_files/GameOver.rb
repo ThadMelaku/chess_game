@@ -57,5 +57,25 @@ module GameOver
     colour = (colour=="white" ? "black" : "white")
     find_opposite_colour_pieces(colour)
   end
-
+  def not_enough_material?(colour)
+    piece_list=find_same_colour_pieces(colour)
+    return false if piece_list.any? {|piece| piece.class.name=="Pawn"}
+    return false if piece_list.any? {|piece| piece.class.name=="Queen"}
+    return false if piece_list.any? {|piece| piece.class.name=="Rook"}
+    return false if has_two_bishops_or_bishop_knight(piece_list)
+    true
+  end
+  def has_two_bishops_or_bishop_knight(piece_list)
+    if piece_list.any? {|piece| piece.class.name=="Bishop"&&piece.colour=="white"}
+      if piece_list.any? {|piece| piece.class.name=="Bishop"&&piece.colour=="black"}
+        return true
+      end
+    end
+    if piece_list.any? {|piece| piece.class.name=="Knight"}
+      if piece_list.any? {|piece| piece.class.name=="Bishop"}
+        return true
+      end
+    end
+    false
+  end
 end

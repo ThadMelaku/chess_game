@@ -1,11 +1,11 @@
 require_relative './MovePiece.rb'
 module Promotion
-  attr_accessor :input 
-  def pawn_promotion?(start,target,test_move=false)
+  attr_accessor :input, :test_input 
+  def pawn_promotion?(start,target)
     return false unless target[0]==0 || target[0]==7
+    return false unless target[1]==start[1] #same row 
     puts "checking pawn promotion"
-
-    promotion_input if input == nil
+    promotion_input if test_input==false
     piece_name = full_piece_name
     promote_pawn(self[start],target,piece_name)
     return true
@@ -15,8 +15,16 @@ module Promotion
       puts "what would you like to promote to?"
       puts " 'Q' 'R' 'B' 'N' "
       user_input ||= gets.chomp
+        letters = /^[qrbnQRBN]$/
+      while letters.match?(user_input)==false 
+        puts " "
+        puts "#{user_input} is not valid"
+        puts "enter one of the following: 'Q' 'R' 'B' 'N' "
+
+        user_input=gets.chomp
+      end
     end
-    @input = user_input
+    @input = user_input.upcase
   end
 
   def full_piece_name
@@ -33,7 +41,7 @@ module Promotion
   end
   def promote_pawn(pawn,target,piece_name)
     unless illegal_move?(pawn,target,piece_name)
-      self[target]=piece_name.new([target],pawn.colour,self)
+      self[target]=piece_name.new(target,pawn.colour,self)
       self[pawn.position]=nil
       pawn=nil
     else

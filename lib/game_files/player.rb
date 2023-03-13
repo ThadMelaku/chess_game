@@ -6,7 +6,7 @@ class Player
 
   def player_input
     input=gets.chomp
-    coordinate = /[a-h][1-8]/i
+    coordinate = /^[a-h][1-8]$/i
     while coordinate.match?(input)==false && input!="exit"
       puts " "
       puts "#{input} is not valid"

@@ -41,6 +41,17 @@ RSpec.describe 'Player' do
           expect(p1.player_input).to eq("exit")
         end
       end
+      context 'more than 2 characters is invalid' do
+        subject(:p1) {Player.new("white")}
+        before do
+          allow(p1).to receive(:puts)
+          allow(p1).to receive(:gets).and_return("3a4sdfs","exit")
+        end
+
+        it '3a4sdfs is invalid, should be only 2 chars long' do
+          expect(p1.player_input).to eq("exit")
+        end
+      end
       context 'numbers only is invalid' do
         subject(:p1) {Player.new("white")}
         before do
