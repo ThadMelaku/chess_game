@@ -3,8 +3,8 @@ require_relative 'PawnMoves'
 class Pawn < Piece
   include PawnMoves
   def to_s
-    #colour == :white ? '♙' : '♟︎'
-    colour == "white" ? 'P' : 'p'
+    colour == :white ? '♙' : '♟︎'
+    #colour == "white" ? 'P' : 'p'
   end
   def initial_position?
     (colour=="white"&&row==1)||(colour=="black"&&row==6)
