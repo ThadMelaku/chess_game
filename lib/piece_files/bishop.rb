@@ -3,7 +3,7 @@ require_relative 'LongMoves'
 class Bishop < Piece
   include LongMoves
   def to_s
-    colour == :white ? '♗' : '♝'
+    colour == "white" ? '♗' : '♝'
     #colour == "white" ? 'B' : 'b'
   end
   def all_moves

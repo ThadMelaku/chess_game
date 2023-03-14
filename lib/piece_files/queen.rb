@@ -3,7 +3,7 @@ require_relative 'LongMoves'
 class Queen < Piece
   include LongMoves
   def to_s
-    colour == :white ? '♕' : '♛'
+    colour == "white" ? '♕' : '♛'
     #colour == "white" ? 'Q' : 'q'
   end
   def all_moves

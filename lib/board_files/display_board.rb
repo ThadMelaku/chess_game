@@ -6,20 +6,20 @@ class DisplayBoard
 
   def display
     num=1
-    puts "\n  -----------------"
+    puts "\n  -------------------------"
     8.times do |row|
       print "#{num} |"
       8.times do |col|
         piece = board[[row, col]]
         if piece
-          print "#{@board[[row, col]]}|"
+          print "#{@board[[row, col]]} |"
         else
-          print " |"
+          print "  |"
         end 
       end
-      puts "\n  -----------------"
+      puts "\n  -------------------------"
       num+=1
     end
-    puts "   H G F E D C B A "
+    puts "   H  G  F  E  D  C  B  A "
   end
 end

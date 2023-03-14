@@ -3,7 +3,7 @@ require_relative 'ShortMoves'
 class Knight < Piece
   include ShortMoves
   def to_s
-    colour == :white ? '♘' : '♞'
+    colour == "white" ? '♘' : '♞'
     #colour == "white" ? 'N' : 'n'
   end
   def all_moves
