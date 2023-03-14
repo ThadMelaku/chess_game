@@ -35,18 +35,17 @@ class Player
   end
   def play_again_input
     input=gets.chomp
-    yes_no = /y|n|/i
+    yes_no = /^[yn]$/i
 
     while yes_no.match?(input)==false
       puts " "
       puts "#{input} is not valid"
-      puts "Enter a letter either y or n"
+      puts "Enter a letter either 'y' or 'n'"
 
       input=gets.chomp
     end
-    return true if input=="y"
-    return false if input=="n"
-
+    return true if input.downcase=="y"
+    return false if input.downcase=="n"
   end
   
 end

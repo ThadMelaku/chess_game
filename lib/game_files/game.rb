@@ -55,10 +55,14 @@ attr_accessor :player1, :player2, :curr_player, :board, :display_board
     else
       #puts "there have been #{board.get_capture_counter} moves without a capture"
     end
-
     #Not enough material to deliver checkmate
     if board.not_enough_material?("white")&&board.not_enough_material?("black")
       puts "Not enough mating material! The game is a draw"
+      return true
+    end
+    #3-fold-repetition
+    if board.three_fold_repetition
+      puts "The same position has been repeted three times! The game is a draw"
       return true
     end
     false
@@ -100,9 +104,7 @@ attr_accessor :player1, :player2, :curr_player, :board, :display_board
       end
     end
   end
-
   def switch_turn
     self.curr_player = (curr_player==player1 ? player2 : player1)
   end
-
 end

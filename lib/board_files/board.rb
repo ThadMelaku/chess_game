@@ -2,7 +2,7 @@ require_relative '../piece_paths.rb'
 require_relative './MovePiece.rb'
 class Board
   include MovePiece
-  attr_reader :board, :input, :capture_counter
+  attr_reader :board, :input, :capture_counter, :board_history
 
   def self.start_chess
     board1 = self.new
@@ -24,12 +24,12 @@ class Board
       end
     board1
   end
-  
   def initialize
     @board = Array.new(8) {Array.new(8)}
     @input = nil
     @test_input = false
     @capture_counter=0 #50 move rule when counter equals 100
+    @board_history=[] #keep track of every board position
   end
   def [](position) #get position
     row, column = position

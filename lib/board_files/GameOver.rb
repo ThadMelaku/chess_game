@@ -1,15 +1,12 @@
 module GameOver
-
   def checkmate?(colour)
     return false unless in_check?(colour)
     return no_legal_moves(colour)
   end
-
   def stalemate?(colour)
     return false if in_check?(colour)
     return no_legal_moves(colour)
   end
-
   def no_legal_moves(colour)
     same_pieces = find_same_colour_pieces(colour)
     same_pieces.each do |piece| 
@@ -17,9 +14,8 @@ module GameOver
     end
     return true #true if colour has no legal moves
   end
-
-  def fifty_move_rule(enpassant_capture=false,target)
-    if enpassant_capture==true
+  def fifty_move_rule(pawn_move=false,target)
+    if pawn_move==true
       self.reset_capture_counter
     elsif self[target]!=nil
       self.reset_capture_counter
@@ -27,7 +23,6 @@ module GameOver
       self.increment_capture_counter
     end
   end
-
   def in_check?(colour) 
     king=find_king(colour)
     raise NoKingError.new('King not found') if king==nil
@@ -38,7 +33,6 @@ module GameOver
     end
     return false
   end
-
   def find_king(colour)
     king=[]
     piece_list = board.flatten
@@ -67,15 +61,22 @@ module GameOver
   end
   def has_two_bishops_or_bishop_knight(piece_list)
     if piece_list.any? {|piece| piece.class.name=="Bishop"&&piece.colour=="white"}
-      if piece_list.any? {|piece| piece.class.name=="Bishop"&&piece.colour=="black"}
-        return true
-      end
+      return true if piece_list.any? {|piece| piece.class.name=="Bishop"&&piece.colour=="black"}
     end
     if piece_list.any? {|piece| piece.class.name=="Knight"}
-      if piece_list.any? {|piece| piece.class.name=="Bishop"}
-        return true
-      end
+      return true if piece_list.any? {|piece| piece.class.name=="Bishop"}
     end
+    false
+  end
+  def update_board_history
+    board_position=board.flatten
+    arr=board_position.map {|piece| piece.to_s}
+    board_history << arr
+  end
+  def three_fold_repetition
+    update_board_history
+    board_count = board_history.uniq.map {|position| board_history.count(position)}
+    return true if board_count.include?(3)
     false
   end
 end
