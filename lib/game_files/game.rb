@@ -1,5 +1,7 @@
+require_relative "SaveGame"
 class Game
-attr_accessor :player1, :player2, :curr_player, :board, :display_board
+  include SaveGame
+  attr_accessor :player1, :player2, :curr_player, :board, :display_board
 
   def initialize
     setup_variables
@@ -15,13 +17,17 @@ attr_accessor :player1, :player2, :curr_player, :board, :display_board
     @curr_player = @player1
     @board=b
     @display_board=d
+    @hash={}
   end
 
   def play
+    game_loaded=ask_to_load_game if File.exists?("saved_board.yml")
     while true
-      puts "Would you like to start a new game? [y/n]"
-      break unless curr_player.play_again_input
-      setup_variables
+      unless game_loaded == true
+        puts "Would you like to start a new game? [y/n]"
+        break unless curr_player.play_again_input #break if user inputs 'n'
+        setup_variables
+      end 
 
       while !game_over?
         puts "It's #{curr_player.colour}'s turn"
@@ -31,7 +37,9 @@ attr_accessor :player1, :player2, :curr_player, :board, :display_board
         break if player_turn==false
         switch_turn
       end
+      game_loaded=false
     end
+    ask_to_save_game
     puts "Thanks for playing!"
   end
   def game_over?
@@ -60,9 +68,9 @@ attr_accessor :player1, :player2, :curr_player, :board, :display_board
       puts "Not enough mating material! The game is a draw"
       return true
     end
-    #3-fold-repetition
+    #3-fold-repetition, same board position has occurred 3 times
     if board.three_fold_repetition
-      puts "The same position has been repeted three times! The game is a draw"
+      puts "The same position has been repeated three times! The game is a draw"
       return true
     end
     false
@@ -99,9 +107,7 @@ attr_accessor :player1, :player2, :curr_player, :board, :display_board
       puts "Choose a target square: "
       target = curr_player.player_input
       return false if target=="exit"
-      if board.move(start, target)
-        return true
-      end
+      return true if board.move(start, target)
     end
   end
   def switch_turn
