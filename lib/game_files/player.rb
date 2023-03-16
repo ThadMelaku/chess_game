@@ -2,6 +2,10 @@ class Player
   attr_accessor :colour
   def initialize(colour)
     @colour=colour
+    @current_input=nil
+  end
+  def get_current_input
+    @current_input
   end
 
   def player_input
@@ -15,7 +19,7 @@ class Player
 
       input=gets.chomp
     end
-
+    @current_input=input
     if input!="exit"
       input=numerical_coordinate(input)
     end 

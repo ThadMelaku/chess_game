@@ -29,7 +29,7 @@ class Game
         setup_variables
       end 
 
-      while !game_over?
+      while !game_over?(game_loaded)
         puts "It's #{curr_player.colour}'s turn"
         if board.in_check?(curr_player.colour)
           puts "#{curr_player.colour} is in check"
@@ -42,9 +42,10 @@ class Game
     ask_to_save_game
     puts "Thanks for playing!"
   end
-  def game_over?
+  def game_over?(game_loaded)
     system("clear") || system("cls")
     display_board.display
+    return false if game_loaded #saved game just loaded, no checks needed
     #current player is checkmated
     if board.checkmate?(curr_player.colour)
       switch_turn
@@ -93,10 +94,14 @@ class Game
       if !empty_square && same_colour && has_legal_moves
         break
       end
-      #check if piece is inbounds
-      puts "The piece you chose does not have any legal moves." if !has_legal_moves
-      puts "You did not choose a #{curr_player.colour} piece." if !same_colour || empty_square
-      p start
+      #Invalid square output messages
+      if empty_square
+        puts "#{curr_player.get_current_input} is an empty square"
+      elsif !same_colour
+        puts "The piece on #{curr_player.get_current_input} is not a #{curr_player.colour} piece."
+      elsif !has_legal_moves
+        puts "The piece on #{curr_player.get_current_input} does not have any legal moves."
+      end
     end
     #Ask player to choose target
     return choose_target(start)
